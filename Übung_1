@@ -1,0 +1,28 @@
+from PyQt6.QtCore import pyqtSlot
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QTextBrowser, QPushButton
+
+# Verbinden Sie das Signal released des QPushbuttons __push_button mit dem Slot handel_push_button innerhalb
+# der Klasse CentralWidget.
+class CentralWidget(QWidget):
+    def __init__(self, parent=None):
+        super(CentralWidget, self).__init__(parent)
+
+        self.__text_browser = QTextBrowser(self)
+        self.__push_button = QPushButton("Senden")
+
+        # Hier wird das Signal released des Objekts __push_button mit dem Slot handel_push_button der Klasse
+        # CentralWidget verbunden.
+        self.__push_button.released.connect(self.handel_push_button)
+
+        layout = QVBoxLayout()
+
+        layout.addWidget(self.__text_browser)
+        layout.addWidget(self.__push_button)
+
+        self.setLayout(layout)
+
+    # Zuerst wird der Slot mit "@pyqtSlot" deklariert.
+    @pyqtSlot()
+    # Danach wird die Funktion definiert.
+    def handel_push_button(self):
+        self.__text_browser.append("QPushButton wurde gedrückt.")
